@@ -9,3 +9,15 @@ h Kernel.trunc/1
 h -> displays helpers
 
 h Kernel.+/2 -> displays documentation for operator + 
+## Code point checking
+?ł will show 322
+### Showing code points
+```elixir
+String.codepoints("👩‍🚒")
+```
+### Showing bytes in string
+```elixir
+"hełło" <> <<0>>
+IO.inspect("hełło", binaries: :as_binaries) #or like this
+
+```

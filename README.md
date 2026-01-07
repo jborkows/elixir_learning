@@ -21,3 +21,8 @@ String.codepoints("👩‍🚒")
 IO.inspect("hełło", binaries: :as_binaries) #or like this
 
 ```
+
+## Mix
+```bash 
+mix new kv --module KV
+```

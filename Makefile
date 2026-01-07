@@ -1,4 +1,4 @@
-.PHONY: hello-world, lists, patterns, functions, bitstring, maps, simplemodule, usingmoduleattributes, structs, recursion, enumerables, comprehensions, comprehensions
+.PHONY: hello-world, lists, patterns, functions, bitstring, maps, simplemodule, usingmoduleattributes, structs, recursion, enumerables, comprehensions, protocols, regexp, sigils, errors, processes, IO, documentation
 
 hello-world:
 	@(cd helloworld; elixir hello.exs)
@@ -22,8 +22,19 @@ recursion:
 	@(cd helloworld; elixir recursion.exs)
 enumerables:
 	@(cd helloworld; elixir enumerables.exs)
-
 comprehensions:
 	@(cd helloworld; elixir comprehensions.exs)
-comprehensions:
-	@(cd helloworld; elixir comprehensions.exs)
+protocols:
+	@(cd helloworld; elixir protocols.exs)
+regexp:
+	@(cd helloworld; elixir regexp.exs)
+sigils:
+	@(cd helloworld; elixir sigils.exs)
+errors:
+	@(cd helloworld; elixir errors.exs)
+processes:
+	@(cd helloworld; elixir processes.exs)
+IO:
+	@(cd helloworld; elixir IO.exs)
+documentation:
+	@(cd helloworld; elixir documentation.exs)

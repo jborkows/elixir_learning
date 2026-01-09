@@ -56,3 +56,35 @@ To change environment use MIX_ENV
 MIX_ENV=prod mix compile
 ```
 
+### Applications
+our build application manifest:
+_build/dev/lib/kv/ebin/kv.app
+```
+
+{application,kv,[{modules,['Elixir.KV','Elixir.KV.Bucket']},{optional_applications,[]},{applications,[kernel,stdlib,elixir,logger]},{description,"kv"},{registered,[]},{vsn,"0.1.0"}]}.
+
+```
+By default machine starts all "applications" but
+```
+$> (cd kv; iex -S mix)
+Erlang/OTP 27 [erts-15.2.7.4] [source] [64-bit] [smp:8:8] [ds:8:8:10] [async-threads:1] [jit:ns]
+
+Compiling 1 file (.ex)
+Generated kv app
+Interactive Elixir (1.19.4) - press Ctrl+C to exit (type h() ENTER for help)
+iex(1)> Application.start(:kv)
+{:error, {:already_started, :kv}}
+iex(2)> Application.stop(:kv)
+
+07:52:09.176 [notice] Application kv exited: :stopped
+:ok
+iex(3)> Application.stop(:logger)
+:ok
+iex(4)> Application.start(:kv)
+{:error, {:not_started, :logger}}
+iex(5)> Application.ensure_all_started(:kv)
+{:ok, [:logger, :kv]}
+iex(6)>
+
+```
+

@@ -9,6 +9,8 @@ h Kernel.trunc/1
 h -> displays helpers
 
 h Kernel.+/2 -> displays documentation for operator + 
+## Notes
+- atoms are not garbage collected
 ## Code point checking
 ?ł will show 322
 ### Showing code points

@@ -2,7 +2,9 @@ defmodule KV.BucketTest do
   use ExUnit.Case, async: true
 
   test "stores values by key" do
-    {:ok, bucket} = KV.Bucket.start_link([])
+    name = {:via, Registry, {KV, "shopping"}}
+
+    {:ok, bucket} = KV.Bucket.start_link(name: name)
     assert KV.Bucket.get(bucket, "milk") == nil
 
     KV.Bucket.put(bucket, "milk", 3)

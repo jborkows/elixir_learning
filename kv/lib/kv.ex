@@ -23,6 +23,11 @@ defmodule KV do
   def start(_type, _args) do
     # this code will be run at start of application
     IO.puts("AAAAA")
-    Supervisor.start_link([], strategy: :one_for_one)
+
+    children = [
+      {Registry, name: KV, keys: :unique}
+    ]
+
+    Supervisor.start_link(children, strategy: :one_for_one)
   end
 end

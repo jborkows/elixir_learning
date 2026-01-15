@@ -87,4 +87,24 @@ iex(5)> Application.ensure_all_started(:kv)
 iex(6)>
 
 ```
+### Process
+To check process id:
+```
+pid = Process.whereis(name)
+```
+To kill process 
+```
+Process.exit(pid, :kill)
+```
+
+If process is supervised killing could lead to creating new process.
+
+Supervising can be done with Supervisor (if one knows number of children at start) or dynamically using DynamicSupervisor
+e.g.
+```elixir
+DynamicSupervisor.start_link(strategy: :one_for_one, name: :dyn_sup) # named supervisor
+name = {:via, Registry, {KV, "yet_another_list"}}
+DynamicSupervisor.start_child(:dyn_sup, {KV.Bucket, name: name}) # using Registry to name process
+KV.Bucket.put(name, "milk", 1)
+```
 

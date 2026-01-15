@@ -15,6 +15,7 @@ defmodule KV.Bucket do
 
   """
 
+  # one of things that it does is add support for child_spec
   use Agent
 
   @typedoc "The bucket process identifier"

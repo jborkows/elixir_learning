@@ -25,9 +25,27 @@ defmodule KV do
     IO.puts("AAAAA")
 
     children = [
-      {Registry, name: KV, keys: :unique}
+      # starts registry which enables to use not only atoms as key at application start
+      {Registry, name: KV, keys: :unique},
+      {DynamicSupervisor, name: KV.BucketSuperviser, strategy: :one_for_one}
     ]
 
     Supervisor.start_link(children, strategy: :one_for_one)
   end
+
+  @doc """
+  Creates bucket for given name
+  """
+  def create_bucket(name) do
+    DynamicSupervisor.start_child(KV.BucketSuperviser, {KV.Bucket, name: via(name)})
+  end
+
+  @doc """
+  Looks for bucket with name
+  """
+  def lookup(name) do
+    GenServer.whereis(via(name))
+  end
+
+  defp via(name), do: {:via, Registry, {KV, name}}
 end

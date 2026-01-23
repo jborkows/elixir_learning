@@ -18,7 +18,11 @@ defmodule KV.Server do
 
   defp loop_acceptor(socket) do
     {:ok, client} = :gen_tcp.accept(socket)
-    serve(client)
+    {:ok, pid} = Task.Supervisor.start_child(KV.ServerSupervisor, fn -> serve(client) end)
+
+    # move control of client connection to created task, otherwise read line on one client would kill all
+    :ok = :gen_tcp.controlling_process(client, pid)
+    # not if client ends connection, server still works
     loop_acceptor(socket)
   end
 

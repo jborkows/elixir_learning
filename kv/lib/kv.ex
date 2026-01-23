@@ -27,7 +27,9 @@ defmodule KV do
     children = [
       # starts registry which enables to use not only atoms as key at application start
       {Registry, name: KV, keys: :unique},
-      {DynamicSupervisor, name: KV.BucketSuperviser, strategy: :one_for_one}
+      {DynamicSupervisor, name: KV.BucketSuperviser, strategy: :one_for_one},
+      {Task.Supervisor, name: KV.ServerSupervisor},
+      {Task, fn -> KV.Server.accept(4000) end}
     ]
 
     Supervisor.start_link(children, strategy: :one_for_one)

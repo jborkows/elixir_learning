@@ -29,7 +29,8 @@ defmodule KV do
       {Registry, name: KV, keys: :unique},
       {DynamicSupervisor, name: KV.BucketSuperviser, strategy: :one_for_one},
       {Task.Supervisor, name: KV.ServerSupervisor},
-      {Task, fn -> KV.Server.accept(4000) end}
+      # Task on default has restart temporal
+      Supervisor.child_spec({Task, fn -> KV.Server.accept(4000) end}, restart: :permanent)
     ]
 
     Supervisor.start_link(children, strategy: :one_for_one)

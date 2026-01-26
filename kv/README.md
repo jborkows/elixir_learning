@@ -108,3 +108,8 @@ DynamicSupervisor.start_child(:dyn_sup, {KV.Bucket, name: name}) # using Registr
 KV.Bucket.put(name, "milk", 1)
 ```
 
+Process in supervisor can have restart policy:
+- :permanent default always restart
+- :temporal do not restart
+- :transient restart only if did not finish successful
+
